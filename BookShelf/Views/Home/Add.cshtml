@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BookShelf.Models.Book
+<h2>Add</h2>
+@using (Html.BeginForm("Add", "Home", FormMethod.Post))
+{
+<fieldset>
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Author.AuthorId)
+    <p>
+        @Html.LabelFor(m => m.Name, "Book name")
+        <br />
+        @Html.EditorFor(m => m.Name)
+    </p>
+    @*<p>
+            @Html.LabelFor(m => m.Author.Name, "Author")
+            <br />
+            @Html.EditorFor(m => m.Author.Name)
+        </p>*@
+    <p>
+        @Html.LabelFor(m => m.Author.AuthorName, "Author")
+        <br />
+        @Html.EditorFor(m => m.Author.AuthorName)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Pages, "Pages")
+        <br />
+        @Html.EditorFor(m => m.Pages)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Mark, "Mark")
+        <br />
+        @Html.EditorFor(m => m.Mark)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.StartDate, "Date of start reading")s
+        <br />
+        @Html.EditorFor(m => m.StartDate,
+                        new
+                             {
+                                 htmlAttributes =
+                                new
+                                     {
+                                         placeholder = "DD.MM.YYYY",
+                                    pattern = @"^(3[0-1]|[12][0-9]|[0][1-9])\.(0[1-9]|1[0-2])\.[0-9]{4}$"
+                                     }
+                             })
+
+    </p>
+    <p>
+        @Html.LabelFor(m => m.EndDate, "Date of end reading")
+        <br />
+        @Html.EditorFor(m => m.EndDate,
+                        new
+                             {
+                                 htmlAttributes =
+                                new
+                                     {
+                                         placeholder = "DD.MM.YYYY",
+                                    pattern = @"^(3[0-1]|[12][0-9]|[0][1-9])\.(0[1-9]|1[0-2])\.[0-9]{4}$"
+                                     }
+                             })
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Reread, "Reread times")
+        <br />
+        @Html.EditorFor(m => m.Reread)
+    </p>
+    <p>
+        <label for="Image">Image</label>
+        <br />
+        <input type="file" name="Image" />
+
+        @*@Html.LabelFor(m => m.Image, "Image")
+              <br />
+            @Html.EditorFor(m => m.Image)*@
+    </p>
+    <p><input type="submit" value="Save" /></p>
+    <input type="button" onclick="document.location='/Home/Index'" value="Back" />
+</fieldset>
+
+}

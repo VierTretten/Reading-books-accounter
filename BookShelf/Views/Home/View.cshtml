@@ -1,0 +1,36 @@
+﻿<h2>BookView</h2>
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model BookShelf.Models.Book
+<div>
+
+    @Html.HiddenFor(m => m.Id)
+    @*<input type="hidden" value="@ViewBag.BookId" name="BookId" />*@
+
+    <h4><p>Image</p></h4>
+    <p>@Model.Image</p>
+    <h4><p>Book name</p></h4>
+    <p>@Model.Name</p>
+    <h4><p>Author</p></h4>
+    @*<p>@Model.Author.Name</p>*@
+    <h4><p>Pages</p></h4>
+    <p>@Model.Pages</p>
+    <h4><p>Mark</p></h4>
+    <p>@Model.Mark</p>
+    <h4><p>Date of start reading</p></h4>
+    <p>@Model.StartDate</p>
+    <h4><p>Date of end reading</p></h4>
+    <p>@Model.EndDate</p>
+    <h4><p>Reread times</p></h4>
+    <p>@Model.Reread</p>
+
+    <input type="button" onclick="document.location='/Home/Edit/@Model.Id'" value="Edit" />
+    <input type="button" onclick="document.location='/Home/Delete/@Model.Id'" value="Delete" />
+    <br />
+    <p><input type="button" onclick="document.location='/Home/Index'" value="Back" /></p>
+
+</div>
+

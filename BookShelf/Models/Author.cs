@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace BookShelf.Models
+{
+    public class Author
+    {
+        public int AuthorId { get; set; }
+        public string AuthorName { get; set; } //если переименовать переменную и возвратить её из вью?
+        public ICollection<Book> Books { get; set; }
+        public Author()
+        {
+            Books = new List<Book>();
+        }
+    }
+}
