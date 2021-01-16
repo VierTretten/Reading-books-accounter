@@ -168,14 +168,15 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml">
-      <BrowseToURL>~/Home/About</BrowseToURL>
-    </Content>
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Add.cshtml" />
-    <Content Include="Views\Home\View.cshtml" />
+    <Content Include="Views\Home\AddBook.cshtml">
+      <BrowseToURL>~/Home/AddBook</BrowseToURL>
+    </Content>
+    <Content Include="Views\Home\ViewAuthor.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\ViewBook.cshtml" />
+    <Content Include="Views\Home\AddAuthor.cshtml" />
+    <Content Include="Views\Home\IndexAuthor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

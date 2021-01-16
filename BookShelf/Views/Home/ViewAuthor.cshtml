@@ -1,0 +1,30 @@
+﻿<h2>Author View</h2>
+
+@{
+    ViewBag.Title = "ViewAuthor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model BookShelf.Models.Author
+
+<div>
+
+    @Html.HiddenFor(m => m.AuthorId)
+    @*<input type="hidden" value="@ViewBag.BookId" name="BookId" />*@
+
+
+    <h4><p>Author name</p></h4>
+    <p>@Model.AuthorName</p>
+    <h4><p>Books</p></h4>
+    @foreach (var b in Model.Books)
+    {
+        <p><a href="/Home/ViewBook/@b.Id">@b.Name</a></p>
+    }
+
+    @*<input type="button" onclick="document.location='/Home/Edit/@Model.Id'" value="Edit" />
+        <input type="button" onclick="document.location='/Home/Delete/@Model.Id'" value="Delete" />*@
+    <input type="button" onclick="document.location='/Home/DeleteAuthor/@Model.AuthorId'" value="Delete Author" />
+    <br />
+    <p><input type="button" onclick="document.location='/Home/IndexAuthor'" value="Back" /></p>
+
+</div>
+

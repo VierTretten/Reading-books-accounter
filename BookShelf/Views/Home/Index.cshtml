@@ -12,7 +12,6 @@
 <div>
     <h3>Books</h3>
     <table>
-        <p><a href="/Home/Add">Add</a></p>
         <tr>
             <td><p>№</p></td>
             <td><p>Name</p></td>
@@ -25,7 +24,7 @@
             <tr>
                 @*@Html.ActionLink(@b.Name, "Add")*@
                 <td><p>@(number++) </p></td>
-                <td><p><a href="/Home/View/@b.Id">@b.Name</a></p></td>
+                <td><p><a href="/Home/ViewBook/@b.Id">@b.Name</a></p></td>
                 <td><p>@b.Author</p></td>
                 <td><p>@b.Pages</p></td>
                 <td><p>@b.Mark</p></td>

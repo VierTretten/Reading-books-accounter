@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "AddAuthor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddAuthor</h2>
+@model BookShelf.Models.Author
+
+<h2>Add Author</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.AuthorId)
+<div class="authorBlock">
+    @*<label>Имя автора</label>
+    <input type="text" name="AuthorName" />*@
+    @Html.LabelFor(m => m.AuthorName, "Author Name")
+    <br />
+    @Html.EditorFor(m => m.AuthorName, new { htmlAttributes = new { @required = "required" } })
+</div>
+<div id="booksBlock">
+    <div class="bookItem">
+        <h4>Book 1</h4>
+        <div>
+            <label>Name</label>
+            <div>
+                <input type="text" name="Books[0].name" />
+            </div>
+        </div>
+    </div>
+    [HttpPost]
+</div>
+    <p><a class="addLink">Add new element</a></p>
+    <p><input type="submit" value="Save" /></p>
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            var i = 0;
+            $('.addLink').click(function () {
+                i++;
+                var html2Add = "<div class='bookItem'>" +
+                    "<h4>Book " + (i + 1) + "</h4>" +
+                    "<div><label>Name</label><div>" +
+                    "<input type='text' name='Books[" + i + "].name' />" +
+                    "</div></div></div>";
+                $('#booksBlock').append(html2Add);
+            })
+        })
+    </script>
+}
+

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookShelf.Models
 {
@@ -18,6 +18,5 @@ namespace BookShelf.Models
         public string EndDate { get; set; }
         public string Image { get; set; }
         public int Reread { get; set; }
-
     }
 }

@@ -16,17 +16,56 @@ namespace BookShelf.Controllers
         {
             return View(db.Books);
         }
+        public ActionResult IndexAuthor()
+        {
+            return View(db.Authors);
+        }
         [HttpGet]
-        public ActionResult Add()
+        public ActionResult AddBook()
         {
             SelectList authors = new SelectList(db.Authors, "Id", "Name");
             ViewBag.Authors = authors;
             return View();
         }
         [HttpPost]
-        public ActionResult Add(Book book)
+        public ActionResult AddBook(Book book)
         {
+            var authorInDB = db.Authors.FirstOrDefault(a => a.AuthorName == book.Author.AuthorName);
+            var booksInDb = db.Books.Where(a => a.Author.AuthorName == authorInDB.AuthorName);
+            //при существовании автора с тем же именем, присваивает полученной модели автора существующую 
+            if (authorInDB != null)
+            {
+                authorInDB.Books = booksInDb.ToList();
+                book.Author = authorInDB;
+            }
+            book.AuthorId = book.Author.AuthorId;
+            book.Author = book.Author;
             db.Books.Add(book);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult AddAuthor()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddAuthor(Author author, List<Book> books)
+        {
+            var authorInDB = db.Authors.FirstOrDefault(a => a.AuthorName == author.AuthorName);
+            //при существовании автора с тем же именем, присваивает полученной модели автора существующую 
+            if (authorInDB != null)
+            {
+                authorInDB.Books = author.Books;
+                author = authorInDB;
+            }
+            foreach (var book in author.Books)
+            {
+                book.AuthorId = author.AuthorId;
+                book.Author = author;
+                db.Books.Add(book);
+                
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -62,11 +101,11 @@ namespace BookShelf.Controllers
             if (author != null)
             {
                 newBook.AuthorId = author.AuthorId;
-                newBook.Author = author;   
+                newBook.Author = author;
             }
             else
             {
-                var books = new List<Book>() {newBook} ;
+                var books = new List<Book>() { newBook };
                 Author newAuthor = new Author { AuthorName = authorName, Books = books };
                 newBook.AuthorId = newAuthor.AuthorId;
                 newBook.Author = newAuthor;
@@ -74,9 +113,8 @@ namespace BookShelf.Controllers
                 db.Entry(newBook).State = EntityState.Modified;
                 //db.Entry(book).State = EntityState.Modified;
             }
-            
             db.SaveChanges();
-            string view = "View/" + book.Id;
+            string view = "ViewBook/" + book.Id;
             return RedirectToAction(view);
         }
         //[HttpGet]
@@ -99,7 +137,7 @@ namespace BookShelf.Controllers
         //    string view = "View/" + b.Id;
         //    return RedirectToAction("Index");
         //}
-        public ActionResult Delete(int id)
+        public ActionResult DeleteBook(int id)
         {
             Book b = db.Books.Find(id);
             if (b != null)
@@ -109,30 +147,36 @@ namespace BookShelf.Controllers
             }
             return RedirectToAction("Index");
         }
+        public ActionResult DeleteAuthor(int id)
+        {
+            Author a = db.Authors.Find(id);
+            if (a != null)
+            {
+                db.Authors.Remove(a);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
-        public ActionResult View(int? id)
+        public ActionResult ViewBook(int? id)
         {
             if (id == null) return HttpNotFound();
-            Book book = db.Books.Find(id);
+            Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.Id == id);
+            if (book.Author == null) ViewBag.AuthorName = "";
+            else ViewBag.AuthorName = book.Author.AuthorName;
             if (book == null) return HttpNotFound();
             return View(book);
         }
-        public ActionResult About()
+        public ActionResult ViewAuthor(int? id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            if (id == null) return HttpNotFound();
+            Author author = db.Authors.Include(a => a.Books).FirstOrDefault(a => a.AuthorId == id);
+            if (author == null) return HttpNotFound();
+            return View(author);
         }
     }
 }

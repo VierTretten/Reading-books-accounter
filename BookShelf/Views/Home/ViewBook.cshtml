@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model BookShelf.Models.Book
+
 <div>
 
     @Html.HiddenFor(m => m.Id)
@@ -15,6 +16,7 @@
     <h4><p>Book name</p></h4>
     <p>@Model.Name</p>
     <h4><p>Author</p></h4>
+    <td><p><a href="/Home/ViewAuthor/@Model.AuthorId">@ViewBag.AuthorName</a></p></td>
     @*<p>@Model.Author.Name</p>*@
     <h4><p>Pages</p></h4>
     <p>@Model.Pages</p>
@@ -28,7 +30,7 @@
     <p>@Model.Reread</p>
 
     <input type="button" onclick="document.location='/Home/Edit/@Model.Id'" value="Edit" />
-    <input type="button" onclick="document.location='/Home/Delete/@Model.Id'" value="Delete" />
+    <input type="button" onclick="document.location='/Home/DeleteBook/@Model.Id'" value="Delete" />
     <br />
     <p><input type="button" onclick="document.location='/Home/Index'" value="Back" /></p>
 

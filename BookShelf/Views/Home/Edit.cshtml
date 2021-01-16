@@ -16,16 +16,16 @@
     <p>
         @Html.LabelFor(m => m.Name, "Book name")
         <br />
-        @Html.EditorFor(m => m.Name)
+        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @required="required" } })
     </p>
     <p>
         @*@Html.LabelFor(m => ViewData["AuthorName"], "Author")*@
         
 
-        @Html.LabelFor(m => m.Author.AuthorName, "AuthorName")
+        @Html.LabelFor(m => m.Author.AuthorName, "Author name")
         <br />
 
-        @Html.EditorFor(m => m.Author.AuthorName, new { htmlAttributes = new { Name = "AuthorName" } })
+        @Html.EditorFor(m => m.Author.AuthorName, new { htmlAttributes = new { Name = "AuthorName", @required = "required" } })
 
 
 
@@ -87,9 +87,9 @@
     </p>
 
     <input type="submit" value="Save" />
-    <input type="button" onclick="document.location='/Home/Delete/@Model.Id'" value="Delete" />
+    <input type="button" onclick="document.location='/Home/DeleteBook/@Model.Id'" value="Delete" />
     <br />
-    <p><input type="button" onclick="document.location='/Home/View/@Model.Id'" value="Back" /></p>
+    <p><input type="button" onclick="document.location='/Home/ViewBook/@Model.Id'" value="Cancel" /></p>
 
 
 

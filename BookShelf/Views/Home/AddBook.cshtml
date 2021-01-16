@@ -1,12 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "AddBook";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @model BookShelf.Models.Book
 <h2>Add</h2>
-@using (Html.BeginForm("Add", "Home", FormMethod.Post))
+@using (Html.BeginForm("AddBook", "Home", FormMethod.Post))
 {
 <fieldset>
     @Html.HiddenFor(m => m.Id)
@@ -14,7 +14,7 @@
     <p>
         @Html.LabelFor(m => m.Name, "Book name")
         <br />
-        @Html.EditorFor(m => m.Name)
+        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @required = "required" } })
     </p>
     @*<p>
             @Html.LabelFor(m => m.Author.Name, "Author")
@@ -24,7 +24,7 @@
     <p>
         @Html.LabelFor(m => m.Author.AuthorName, "Author")
         <br />
-        @Html.EditorFor(m => m.Author.AuthorName)
+        @Html.EditorFor(m => m.Author.AuthorName, new { htmlAttributes = new { @required = "required" } }))
     </p>
     <p>
         @Html.LabelFor(m => m.Pages, "Pages")
