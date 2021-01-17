@@ -16,11 +16,6 @@
         <br />
         @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @required = "required" } })
     </p>
-    @*<p>
-            @Html.LabelFor(m => m.Author.Name, "Author")
-            <br />
-            @Html.EditorFor(m => m.Author.Name)
-        </p>*@
     <p>
         @Html.LabelFor(m => m.Author.AuthorName, "Author")
         <br />
@@ -74,10 +69,6 @@
         <label for="Image">Image</label>
         <br />
         <input type="file" name="Image" />
-
-        @*@Html.LabelFor(m => m.Image, "Image")
-              <br />
-            @Html.EditorFor(m => m.Image)*@
     </p>
     <p><input type="submit" value="Save" /></p>
     <input type="button" onclick="document.location='/Home/Index'" value="Back" />

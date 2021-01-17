@@ -2,12 +2,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@*<div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>*@
 @{ int number = 1;}
 <div>
     <h3>Authors</h3>
@@ -20,7 +14,6 @@
         @foreach (var a in Model)
         {
             <tr>
-                @*@Html.ActionLink(@b.Name, "Add")*@
                 <td><p>@(number++) </p></td>
                 <td><p><a href="/Home/ViewAuthor/@a.AuthorId">@a.AuthorName</a></p></td>
                 <td><p>@a.Books.Count() </p></td>
@@ -29,4 +22,3 @@
     </table>
 
 </div>
-

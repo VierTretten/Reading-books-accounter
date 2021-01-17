@@ -10,7 +10,7 @@ namespace BookShelf.Models
     {
         public int AuthorId { get; set; }
         [Required]
-        public string AuthorName { get; set; } //если переименовать переменную и возвратить её из вью?
+        public string AuthorName { get; set; }
         public ICollection<Book> Books { get; set; }
         public Author()
         {

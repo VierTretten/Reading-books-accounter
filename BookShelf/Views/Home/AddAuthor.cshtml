@@ -14,8 +14,6 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.AuthorId)
 <div class="authorBlock">
-    @*<label>Имя автора</label>
-    <input type="text" name="AuthorName" />*@
     @Html.LabelFor(m => m.AuthorName, "Author Name")
     <br />
     @Html.EditorFor(m => m.AuthorName, new { htmlAttributes = new { @required = "required" } })

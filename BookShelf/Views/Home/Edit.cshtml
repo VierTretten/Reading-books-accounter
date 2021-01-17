@@ -10,91 +10,74 @@
 <h2>Edit</h2>
 @using (Html.BeginForm("Edit", "Home", FormMethod.Post))
 {
-<fieldset>
-    @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.Author.AuthorId)
-    <p>
-        @Html.LabelFor(m => m.Name, "Book name")
-        <br />
-        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @required="required" } })
-    </p>
-    <p>
-        @*@Html.LabelFor(m => ViewData["AuthorName"], "Author")*@
-        
+    <fieldset>
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Author.AuthorId)
+        <p>
+            @Html.LabelFor(m => m.Name, "Book name")
+            <br />
+            @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @required = "required" } })
+        </p>
+        <p>
 
-        @Html.LabelFor(m => m.Author.AuthorName, "Author")
-        <br />
+            @Html.LabelFor(m => m.Author.AuthorName, "Author")
+            <br />
 
-        @Html.EditorFor(m => m.Author.AuthorName, new { htmlAttributes = new { Name = "AuthorName", @required = "required" } })
+            @Html.EditorFor(m => m.Author.AuthorName, new { htmlAttributes = new { Name = "AuthorName", @required = "required" } })
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Pages, "Pages")
+            <br />
+            @Html.EditorFor(m => m.Pages)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Mark, "Mark")
+            <br />
+            @Html.EditorFor(m => m.Mark)
+        </p>
 
-
-
-    @*@Html.TextBoxFor(m => m.Author.Name, new { name = "Author.Name" })*@
-    @*@Html.EditorFor(m => m.Author.Name)*@
-    @*@Html.DropDownListFor(model => model.AuthorId, ViewBag.Authors as SelectList)*@
-    @*<input type="text" name="AuthorName" />*@
-    </p>
-
-    <p>
-        @Html.LabelFor(m => m.Pages, "Pages")
-        <br />
-        @Html.EditorFor(m => m.Pages)
-    </p>
-    <p>
-        @Html.LabelFor(m => m.Mark, "Mark")
-        <br />
-        @Html.EditorFor(m => m.Mark)
-    </p>
-
-    <p>
-        @Html.LabelFor(m => m.StartDate, "Date of start reading")s
-        <br />
-        @Html.EditorFor(m => m.StartDate, new
-        {
-            htmlAttributes = new
+        <p>
+            @Html.LabelFor(m => m.StartDate, "Date of start reading")s
+            <br />
+            @Html.EditorFor(m => m.StartDate, new
             {
-                                    placeholder = "DD.MM.YYYY",
-                                    pattern = @"^(3[0-1]|[12][0-9]|[0][1-9])\.(0[1-9]|1[0-2])\.[0-9]{4}$"
-            }
-        })
+                htmlAttributes = new
+                {
+                                        placeholder = "DD.MM.YYYY",
+                                        pattern = @"^(3[0-1]|[12][0-9]|[0][1-9])\.(0[1-9]|1[0-2])\.[0-9]{4}$"
+                }
+            })
 
-    </p>
-    <p>
-        @Html.LabelFor(m => m.EndDate, "Date of end reading")
-        <br />
-        @Html.EditorFor(m => m.EndDate, new
-        {
-            htmlAttributes = new
+        </p>
+        <p>
+            @Html.LabelFor(m => m.EndDate, "Date of end reading")
+            <br />
+            @Html.EditorFor(m => m.EndDate, new
             {
-                                   placeholder = "DD.MM.YYYY",
-                                   pattern = @"^(3[0-1]|[12][0-9]|[0][1-9])\.(0[1-9]|1[0-2])\.[0-9]{4}$"
-            }
-        })
-    </p>
-    <p>
-        @Html.LabelFor(m => m.Reread, "Reread times")
+                htmlAttributes = new
+                {
+                                       placeholder = "DD.MM.YYYY",
+                                       pattern = @"^(3[0-1]|[12][0-9]|[0][1-9])\.(0[1-9]|1[0-2])\.[0-9]{4}$"
+                }
+            })
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Reread, "Reread times")
+            <br />
+            @Html.EditorFor(m => m.Reread)
+        </p>
+        <p>
+            <label for="Image">Image</label>
+            <br />
+            <input type="file" name="Image" />
+        </p>
+
+        <input type="submit" value="Save" />
+        <input type="button" onclick="document.location='/Home/DeleteBook/@Model.Id'" value="Delete" />
         <br />
-        @Html.EditorFor(m => m.Reread)
-    </p>
-    <p>
-        <label for="Image">Image</label>
-        <br />
-        <input type="file" name="Image" />
+        <p><input type="button" onclick="document.location='/Home/ViewBook/@Model.Id'" value="Cancel" /></p>
 
-        @*@Html.LabelFor(m => m.Image, "Image")
-              <br />
-            @Html.EditorFor(m => m.Image)*@
-    </p>
-
-    <input type="submit" value="Save" />
-    <input type="button" onclick="document.location='/Home/DeleteBook/@Model.Id'" value="Delete" />
-    <br />
-    <p><input type="button" onclick="document.location='/Home/ViewBook/@Model.Id'" value="Cancel" /></p>
-
-
-
-
-</fieldset>
+    </fieldset>
 
 }
 

@@ -9,8 +9,6 @@
 <div>
 
     @Html.HiddenFor(m => m.AuthorId)
-    @*<input type="hidden" value="@ViewBag.BookId" name="BookId" />*@
-
 
     <h4><p>Author name</p></h4>
     <p>@Model.AuthorName</p>
@@ -20,8 +18,6 @@
         <p><a href="/Home/ViewBook/@b.Id">@b.Name</a></p>
     }
 
-    @*<input type="button" onclick="document.location='/Home/Edit/@Model.Id'" value="Edit" />
-        <input type="button" onclick="document.location='/Home/Delete/@Model.Id'" value="Delete" />*@
     <input type="button" onclick="document.location='/Home/DeleteAuthor/@Model.AuthorId'" value="Delete Author" />
     <br />
     <p><input type="button" onclick="document.location='/Home/IndexAuthor'" value="Back" /></p>
