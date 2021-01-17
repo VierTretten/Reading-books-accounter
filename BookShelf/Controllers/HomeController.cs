@@ -31,16 +31,17 @@ namespace BookShelf.Controllers
         [HttpPost]
         public ActionResult AddBook(Book book)
         {
-            var authorInDB = db.Authors.FirstOrDefault(a => a.AuthorName == book.Author.AuthorName);
-            var booksInDb = db.Books.Where(a => a.Author.AuthorName == authorInDB.AuthorName);
+            var authorInDB = db.Authors
+                .Include(a=>a.Books)
+                .FirstOrDefault(a => a.AuthorName == book.Author.AuthorName);
+            //var booksInDb = db.Books.Where(a => a.Author.AuthorName == authorInDB.AuthorName);
             //при существовании автора с тем же именем, присваивает полученной модели автора существующую 
             if (authorInDB != null)
             {
-                authorInDB.Books = booksInDb.ToList();
                 book.Author = authorInDB;
             }
-            book.AuthorId = book.Author.AuthorId;
-            book.Author = book.Author;
+            //book.AuthorId = book.Author.AuthorId;
+            //book.Author = book.Author;
             db.Books.Add(book);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -65,7 +66,7 @@ namespace BookShelf.Controllers
                 book.AuthorId = author.AuthorId;
                 book.Author = author;
                 db.Books.Add(book);
-                
+
             }
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -74,13 +75,16 @@ namespace BookShelf.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null) return HttpNotFound();
-            Book book = db.Books.Find(id);
+            //Book book = db.Books.Find(id);
+            var book = db.Books
+                .Include(b=>b.Author)
+                .FirstOrDefault(b => b.Id == id);
             if (book == null) return HttpNotFound();
-            Author author = db.Authors.FirstOrDefault(p => p.AuthorId == book.AuthorId);
+            //Author author = db.Authors.FirstOrDefault(p => p.AuthorId == book.AuthorId);
             //SelectList authors = new SelectList(db.Authors, "Id", "Name", book.AuthorId);
             //ViewBag.Authors = authors;
-            if (author != null) ViewData["AuthorName"] = author.AuthorName;
-            else ViewData["AuthorName"] = null; //!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //if (author != null) ViewData["AuthorName"] = author.AuthorName;
+            //else ViewData["AuthorName"] = null; //!!!!!!!!!!!!!!!!!!!!!!!!!!
             return View(book);
         }
         [HttpPost]
@@ -89,31 +93,37 @@ namespace BookShelf.Controllers
             if (book.Mark > 10) book.Mark = 10;
             if (book.Mark < 0) book.Mark = 0;
             string authorName = Request.Form["AuthorName"]; // Найти АйДи по имени и изменить AuthorId у Book, удалив прошлые поля. Это если автор уже существует.
-            //book.AuthorId = book.Author.AuthorId;
+            ////book.AuthorId = book.Author.AuthorId;
             var author = db.Authors.FirstOrDefault(p => p.AuthorName == authorName);
-            var newBook = db.Books.Find(book.Id);
-            newBook.Name = book.Name;
-            newBook.Pages = book.Pages;
-            newBook.Mark = book.Mark;
-            newBook.StartDate = book.StartDate;
-            newBook.EndDate = book.EndDate;
-            newBook.Image = book.Image;
-            newBook.Reread = book.Reread;
+
+            //var newBook = db.Books.Find(book.Id);
+            //newBook.Name = book.Name;
+            //newBook.Pages = book.Pages;
+            //newBook.Mark = book.Mark;
+            //newBook.StartDate = book.StartDate;
+            //newBook.EndDate = book.EndDate;
+            //newBook.Image = book.Image;
+            //newBook.Reread = book.Reread;
             if (author != null)
             {
-                newBook.AuthorId = author.AuthorId;
-                newBook.Author = author;
+                book.AuthorId = author.AuthorId;
+                book.Author = author;
+                //    newBook.AuthorId = author.AuthorId;
+                //    newBook.Author = author;
             }
             else
             {
-                var books = new List<Book>() { newBook };
-                Author newAuthor = new Author { AuthorName = authorName, Books = books };
-                newBook.AuthorId = newAuthor.AuthorId;
-                newBook.Author = newAuthor;
-                db.Authors.Add(newAuthor);
-                db.Entry(newBook).State = EntityState.Modified;
+                //var books = new List<Book>() { book };
+                //Author newAuthor = new Author { AuthorName = authorName};
+                //book.Author = newAuthor;
+                //book.AuthorId = newAuthor.AuthorId;
+                //db.Authors.Add(newAuthor);
+                book.Author = new Author { AuthorName = authorName };
+                db.Authors.Add(book.Author);
+                //    db.Entry(newBook).State = EntityState.Modified;
                 //db.Entry(book).State = EntityState.Modified;
             }
+            db.Entry(book).State = EntityState.Modified;
             db.SaveChanges();
             string view = "ViewBook/" + book.Id;
             return RedirectToAction(view);
@@ -167,8 +177,8 @@ namespace BookShelf.Controllers
         {
             if (id == null) return HttpNotFound();
             Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.Id == id);
-            if (book.Author == null) ViewBag.AuthorName = "";
-            else ViewBag.AuthorName = book.Author.AuthorName;
+            //if (book.Author == null) ViewBag.AuthorName = "";
+            //else ViewBag.AuthorName = book.Author.AuthorName;
             if (book == null) return HttpNotFound();
             return View(book);
         }

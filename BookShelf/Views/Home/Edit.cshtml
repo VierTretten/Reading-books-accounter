@@ -12,7 +12,7 @@
 {
 <fieldset>
     @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.Author.AuthorId, new { htmlAttributes = new { Name = "AuthorId" } })
+    @Html.HiddenFor(m => m.Author.AuthorId)
     <p>
         @Html.LabelFor(m => m.Name, "Book name")
         <br />
@@ -22,7 +22,7 @@
         @*@Html.LabelFor(m => ViewData["AuthorName"], "Author")*@
         
 
-        @Html.LabelFor(m => m.Author.AuthorName, "Author name")
+        @Html.LabelFor(m => m.Author.AuthorName, "Author")
         <br />
 
         @Html.EditorFor(m => m.Author.AuthorName, new { htmlAttributes = new { Name = "AuthorName", @required = "required" } })
